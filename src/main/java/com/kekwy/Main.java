@@ -55,26 +55,6 @@ public class Main {
 		}
 		new CheckToolController(csvDir, dirPath).start();
 
-		try {
-			HttpServer httpserver = HttpServerProvider.provider().
-					createHttpServer(new InetSocketAddress(8080), 100);
-			httpserver.createContext("/", new HttpHandler(){
 
-				@Override
-				public void handle(HttpExchange exchange) throws IOException {
-					// System.out.println(exchange.getProtocol());
-					// exchange.sendResponseHeaders(200, 100);
-					String response = "test message";
-					exchange.sendResponseHeaders(200, 0);
-					OutputStream os = exchange.getResponseBody();
-					os.write(response.getBytes(StandardCharsets.UTF_8));
-					os.close();
-
-				}
-			});
-			httpserver.start();
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
 	}
 }

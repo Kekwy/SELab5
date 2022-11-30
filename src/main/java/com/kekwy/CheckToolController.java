@@ -30,6 +30,7 @@ public class CheckToolController extends Thread {
 
 	@Override
 	public void run() {
+		LocalWebServer server = new LocalWebServer(8080);
 		while(true) {
 			String fileName = "equal.csv";
 			if (mode == MODE_CHECK_INEQUAL) {
@@ -51,7 +52,10 @@ public class CheckToolController extends Thread {
 					List<String> original = Files.readAllLines(new File(pathPrefix + pair[0]).toPath());
 					List<String> revised = Files.readAllLines(new File(pathPrefix + pair[1]).toPath());
 
-					DiffTextGenerator.generate(pair[0], pair[1], original, revised);
+					String diffString = DiffTextGenerator.generate(pair[0], pair[1], original, revised);
+					if (diffString != null) {
+						server.send(diffString);
+					}
 
 				}
 			} catch (IOException e) {

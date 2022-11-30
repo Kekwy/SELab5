@@ -6,8 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="7c87f62d-0bcc-4d27-8743-e48bf72568a4" name="变更" comment="feat: 实现输入模块">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kekwy/CheckToolController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kekwy/CheckToolController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kekwy/LocalHttpServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kekwy/LocalWebServer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/kekwy/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kekwy/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/kekwy/NetworkController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kekwy/LocalHttpServer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/kekwy/util/DiffTextGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kekwy/util/DiffTextGenerator.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -87,7 +88,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669703505490</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="feat: 实现生成统一差异格式文本">
+      <created>1669772769555</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1669772769555</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -100,24 +108,35 @@
         </entry>
       </map>
     </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="HEAD" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="init" />
     <MESSAGE value="feat: 实现输入模块" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 实现输入模块" />
+    <MESSAGE value="feat: 实现生成统一差异格式文本" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 实现生成统一差异格式文本" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/kekwy/CheckToolController.java</url>
-          <line>53</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/com/kekwy/util/DiffTextGenerator.java</url>
           <line>21</line>
-          <properties class="com.kekwy.util.DiffTextGenerator" method="insertIntoOriginal">
+          <properties class="com.kekwy.util.DiffTextGenerator">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
