@@ -29,7 +29,8 @@ public class CheckToolController extends Thread {
 	public void run() {
 		LocalWebServer server = new LocalWebServer(8080);
 		DisjointSetUnion<String> dsUnion = new DisjointSetUnion<>();
-		// List<String>
+		List<String> equalPairs = new ArrayList<>();
+		List<String> inequalPairs = new ArrayList<>();
 		server.start();
 		while(true) {
 			String fileName = "equal.csv";
@@ -59,8 +60,18 @@ public class CheckToolController extends Thread {
 					if (diffString != null) {
 						isEqual = server.send(diffString) == 1;
 					}
+					String pairStr = pair[0] + "," + pair[1];
 					if (isEqual) {
 						dsUnion.union(pair[0], pair[1]);
+						if (inequalPairs.contains(pairStr)) {
+							throw new RuntimeException("人工确认结果中存在矛盾项: \n" + pairStr);
+						}
+						equalPairs.add(pairStr);
+					} else {
+						if (equalPairs.contains(pairStr)) {
+							throw new RuntimeException("人工确认结果中存在矛盾项: \n" + pairStr);
+						}
+						inequalPairs.add(pairStr);
 					}
 					// checkMap.put(pair[0]+","+pair[1], isEqual);
 				}
