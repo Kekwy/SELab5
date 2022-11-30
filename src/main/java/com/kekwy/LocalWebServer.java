@@ -10,6 +10,8 @@ import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class LocalWebServer {
 
@@ -49,8 +51,6 @@ public class LocalWebServer {
 			HttpServer httpserver = HttpServerProvider.provider().
 					createHttpServer(new InetSocketAddress(port), 100);
 			httpserver.createContext("/", this::handle);
-			httpserver.createContext("/equal", this::handleEqual);
-			httpserver.createContext("/inequal", this::handleInequal);
 			httpserver.createContext("/favicon.ico", this::handleIcon);
 			httpserver.start();
 		} catch (IOException e) {
@@ -69,21 +69,13 @@ public class LocalWebServer {
 		}
 	}
 
-	public void handleEqual(HttpExchange exchange) throws IOException {
-		helper(exchange, 1);
-	}
-
-	public void handleInequal(HttpExchange exchange) throws IOException {
-		helper(exchange, 0);
-	}
-
-	private void helper(HttpExchange exchange, int feedback) throws IOException {
+	private void helper(int feedback) throws IOException {
 		boolean flag = true;
 		synchronized (mutexResponse) {
 			if (responseMessage == null) {
 				flag = false;
 			}
-			// responseReady = false;
+			responseReady = false;
 		}
 		if (flag) {
 			synchronized (mutexFeedback) {
@@ -92,19 +84,37 @@ public class LocalWebServer {
 				mutexFeedback.notify();
 			}
 		}
-		handle(exchange);
 	}
 
-	public void handlePost(HttpExchange exchange) throws IOException {
-		System.out.println(new String(exchange.getRequestBody().readAllBytes()));
+	private static final Pattern PATTERN = Pattern.compile("(\\w+)=(\\w+)");
+
+	public boolean handlePost(HttpExchange exchange) throws IOException {
+		Matcher matcher = PATTERN.matcher(new String(exchange.getRequestBody().readAllBytes()));
+		if (!matcher.find()) {
+			return false;
+		}
+		if (Objects.equals(matcher.group(2), "equal")) {
+			helper(1);
+		} else if (Objects.equals(matcher.group(2), "inequal")) {
+			helper(0);
+		} else {
+			return false;
+		}
+		return true;
 	}
 
 	public void handle(HttpExchange exchange) throws IOException {
-		String response;
+		boolean flag = true;
 		if (Objects.equals(exchange.getRequestMethod(), "POST")) {
-			handlePost(exchange);
+			flag = handlePost(exchange);
+		}
+		if (!flag) {
+			exchange.sendResponseHeaders(400, 0);
+			exchange.getResponseBody().write("Bad Request.".getBytes());
+			exchange.getResponseBody().close();
 			return;
 		}
+		String response;
 		synchronized (mutexResponse) {
 			if (!responseReady) {
 				try {
@@ -171,11 +181,24 @@ public class LocalWebServer {
 						
 						<script>
 							document.getElementById("equalButton").onclick = function() {
-								document.location.href='/equal';
-							}
-							document.getElementById("inequalButton").onclick = function() {
-								document.location.href='/inequal';
-							}
+					            helper("equal");
+					        }
+					        document.getElementById("inequalButton").onclick = function() {
+					            helper("inequal");
+					        }
+					        function helper(v) {
+					            var temp = document.createElement("form");
+					            temp.action = "/";
+					            temp.method = "post";
+					            temp.style.display = "none";
+					            var opt = document.createElement("textarea");
+					            opt.name = "result";
+					            opt.value = v;
+					            temp.appendChild(opt);
+					            document.body.appendChild(temp);
+					            temp.submit();
+					            return temp;
+					        }
 						</script>
 						
 					</html>
