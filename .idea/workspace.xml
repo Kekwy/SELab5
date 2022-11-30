@@ -5,15 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7c87f62d-0bcc-4d27-8743-e48bf72568a4" name="变更" comment="feat: 实现输入模块">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/kekwy/CheckToolController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/kekwy/NetworkController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/kekwy/util/DSU.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/kekwy/util/DSUFactory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/kekwy/util/DiffTextGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/kekwy/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kekwy/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kekwy/NetworkController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kekwy/LocalHttpServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kekwy/util/DiffTextGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kekwy/util/DiffTextGenerator.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,6 +21,9 @@
         <option value="Class" />
       </list>
     </option>
+  </component>
+  <component name="Git.Merge.Settings">
+    <option name="BRANCH" value="feature-input" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -115,6 +113,15 @@
           <url>file://$PROJECT_DIR$/src/main/java/com/kekwy/CheckToolController.java</url>
           <line>53</line>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/com/kekwy/util/DiffTextGenerator.java</url>
+          <line>21</line>
+          <properties class="com.kekwy.util.DiffTextGenerator" method="insertIntoOriginal">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="4" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

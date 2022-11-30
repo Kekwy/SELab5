@@ -53,7 +53,7 @@ public class Main {
 		if (!csv) {
 			throw new RuntimeException("未指定CSV输出文件路径");
 		}
-		// new CheckToolController(csvDir, dirPath).start();
+		new CheckToolController(csvDir, dirPath).start();
 
 		try {
 			HttpServer httpserver = HttpServerProvider.provider().
