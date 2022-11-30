@@ -27,6 +27,27 @@ public class LocalWebServer {
 
 	private boolean feedbackReady = false;
 
+	private final HttpServer httpserver;
+
+	public LocalWebServer(int port) {
+		try {
+			httpserver = HttpServerProvider.provider().
+					createHttpServer(new InetSocketAddress(port), 100);
+			httpserver.createContext("/", this::handle);
+			httpserver.createContext("/favicon.ico", this::handleIcon);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	public void start() {
+		httpserver.start();
+	}
+
+	public void stop() {
+		httpserver.stop(5);
+	}
+
 	public int send(String response) {
 		synchronized (mutexResponse) {
 			this.responseMessage = response;
@@ -46,17 +67,7 @@ public class LocalWebServer {
 		}
 	}
 
-	public LocalWebServer(int port) {
-		try {
-			HttpServer httpserver = HttpServerProvider.provider().
-					createHttpServer(new InetSocketAddress(port), 100);
-			httpserver.createContext("/", this::handle);
-			httpserver.createContext("/favicon.ico", this::handleIcon);
-			httpserver.start();
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-	}
+
 
 	private void handleIcon(HttpExchange exchange) {
 		try {
@@ -203,6 +214,4 @@ public class LocalWebServer {
 						
 					</html>
 					""";
-
-
 }
