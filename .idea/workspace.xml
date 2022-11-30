@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7c87f62d-0bcc-4d27-8743-e48bf72568a4" name="变更" comment="bugfix: 修复在确认结果中忽略内容相同文件的bug">
+    <list default="true" id="7c87f62d-0bcc-4d27-8743-e48bf72568a4" name="变更" comment="feat: 检查用户输入，增加鲁棒性">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/kekwy/CheckToolController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kekwy/CheckToolController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kekwy/LocalWebServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kekwy/LocalWebServer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -127,7 +128,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669799469022</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="feat: 检查用户输入，增加鲁棒性">
+      <created>1669800215222</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1669800215222</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -192,6 +200,7 @@
     <MESSAGE value="feat: 检查人工确认结果中的矛盾项" />
     <MESSAGE value="feat: 将判断结果输出为CSV文件" />
     <MESSAGE value="bugfix: 修复在确认结果中忽略内容相同文件的bug" />
-    <option name="LAST_COMMIT_MESSAGE" value="bugfix: 修复在确认结果中忽略内容相同文件的bug" />
+    <MESSAGE value="feat: 检查用户输入，增加鲁棒性" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 检查用户输入，增加鲁棒性" />
   </component>
 </project>

@@ -78,6 +78,12 @@ public class LocalWebServer {
 		}
 	}
 
+	public void clearFeedback() {
+		synchronized (mutexFeedback) {
+			feedbackReady = false;
+		}
+	}
+
 	private void handleIcon(HttpExchange exchange) {
 		try {
 			exchange.sendResponseHeaders(200, 0);
@@ -191,12 +197,12 @@ public class LocalWebServer {
 							});
 						</script>
 						<body>
-							<div id="myDiffElement"></div>
 							<div class="buttons">
 								请选择：
 								<input value="确认等价" type="button" id="equalButton">
 								<input value="确认不等价" type="button" id="inequalButton">
 							</div>
+							<div id="myDiffElement"></div>
 						</body>
 						
 						<script>
