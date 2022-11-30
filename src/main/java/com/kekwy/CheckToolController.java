@@ -20,10 +20,14 @@ public class CheckToolController extends Thread {
 	private final String csvFileDir, pathPrefix;
 
 	public CheckToolController(String csvFileDir, String pathPrefix) {
-
+		if (!csvFileDir.endsWith("/")) {
+			csvFileDir += '/';
+		}
 		this.csvFileDir = csvFileDir;
+		if (!pathPrefix.endsWith("/")) {
+			pathPrefix += '/';
+		}
 		this.pathPrefix = pathPrefix;
-
 	}
 
 	@Override
@@ -33,7 +37,7 @@ public class CheckToolController extends Thread {
 		List<String> equalPairs = new ArrayList<>();
 		List<String> inequalPairs = new ArrayList<>();
 		server.start();
-		while(true) {
+		while (true) {
 			String fileName = "equal.csv";
 			if (mode == MODE_CHECK_INEQUAL) {
 				fileName = "inequal.csv";
@@ -52,27 +56,26 @@ public class CheckToolController extends Thread {
 					String[] pair = reader.getValues();
 					List<String> original = Files.readAllLines(new File(pathPrefix + pair[0]).toPath());
 					List<String> revised = Files.readAllLines(new File(pathPrefix + pair[1]).toPath());
-					// 由于等价性的传递性，一组经人工确认后建立了间接等价关系的两个程序，可以跳过人工确认
-					if (Objects.equals(dsUnion.find(pair[0]), dsUnion.find(pair[1]))) {
-						continue;
-					}
-					String diffString = DiffTextGenerator.generate(pair[0], pair[1], original, revised);
 					boolean isEqual = true;
-					if (diffString != null) {
-						isEqual = server.send(diffString) == 1;
+					String pairRecord = pair[0] + "," + pair[1];
+					// 由于等价性的传递性，一组经人工确认后建立了间接等价关系的两个程序，可以跳过人工确认
+					if (!Objects.equals(dsUnion.find(pair[0]), dsUnion.find(pair[1]))) {
+						String diffString = DiffTextGenerator.generate(pair[0], pair[1], original, revised);
+						if (diffString != null) {
+							isEqual = server.send(diffString) == 1;
+						}
 					}
-					String pairStr = pair[0] + "," + pair[1];
 					if (isEqual) {
 						dsUnion.union(pair[0], pair[1]);
-						if (inequalPairs.contains(pairStr)) {
-							throw new RuntimeException("人工确认结果中存在矛盾项: \n" + pairStr);
+						if (inequalPairs.contains(pairRecord)) {
+							throw new RuntimeException("人工确认结果中存在矛盾项: \n" + pairRecord);
 						}
-						equalPairs.add(pairStr);
+						equalPairs.add(pairRecord);
 					} else {
-						if (equalPairs.contains(pairStr)) {
-							throw new RuntimeException("人工确认结果中存在矛盾项: \n" + pairStr);
+						if (equalPairs.contains(pairRecord)) {
+							throw new RuntimeException("人工确认结果中存在矛盾项: \n" + pairRecord);
 						}
-						inequalPairs.add(pairStr);
+						inequalPairs.add(pairRecord);
 					}
 				}
 			} catch (IOException e) {
@@ -110,8 +113,13 @@ public class CheckToolController extends Thread {
 			equalFile = new File(csvFileDir + "equal.csv");
 			inequalFile = new File(csvFileDir + "inequal.csv");
 		} else {
-			equalFile = new File(csvFileDir + "equal_" + DatePrefix.getDateString() + ".csv");
-			inequalFile = new File(csvFileDir + "inequal_" + DatePrefix.getDateString() + ".csv");
+			File folder = new File(csvFileDir + "after_check/");
+			if (!folder.exists()) {
+				folder.mkdirs();
+			}
+			String prefix = DatePrefix.getDateString();
+			equalFile = new File(csvFileDir + "after_check/" + "equal_" + prefix + ".csv");
+			inequalFile = new File(csvFileDir + "after_check/" + "inequal_" + prefix + ".csv");
 			try {
 				equalFile.createNewFile();
 				inequalFile.createNewFile();
@@ -130,7 +138,7 @@ public class CheckToolController extends Thread {
 			if (cover) {
 				fops.write("file1,file2\n");
 			}
-			for (String inequalPair :inequalPairs) {
+			for (String inequalPair : inequalPairs) {
 				fops.write(inequalPair + "\n");
 			}
 			fops.close();
