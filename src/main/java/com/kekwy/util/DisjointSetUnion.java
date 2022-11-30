@@ -28,7 +28,7 @@ public class DisjointSetUnion<T> {
 
 	public void union(T p, T q) {
 		if (isShutdown) {
-			return;
+			throw new RuntimeException("The dsu has been shutdown.");
 		}
 		T rootP = find(p);
 		T rootQ = find(q);

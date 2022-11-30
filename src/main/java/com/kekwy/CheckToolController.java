@@ -5,10 +5,14 @@ import com.kekwy.util.DatePrefix;
 import com.kekwy.util.DiffTextGenerator;
 import com.kekwy.util.DisjointSetUnion;
 
+import java.awt.*;
 import java.io.*;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.*;
+import java.util.List;
 
 public class CheckToolController extends Thread {
 
@@ -36,7 +40,9 @@ public class CheckToolController extends Thread {
 		DisjointSetUnion<String> dsUnion = new DisjointSetUnion<>();
 		List<String> equalPairs = new ArrayList<>();
 		List<String> inequalPairs = new ArrayList<>();
+		Map<String, List<String>> inequalMap = new HashMap<>();
 		server.start();
+		showPage();
 		while (true) {
 			String fileName = "equal.csv";
 			if (mode == MODE_CHECK_INEQUAL) {
@@ -58,6 +64,12 @@ public class CheckToolController extends Thread {
 					List<String> revised = Files.readAllLines(new File(pathPrefix + pair[1]).toPath());
 					boolean isEqual = true;
 					String pairRecord = pair[0] + "," + pair[1];
+					if (!inequalMap.containsKey(pair[0])) {
+						inequalMap.put(pair[0], new ArrayList<>());
+					}
+					if (!inequalMap.containsKey(pair[1])) {
+						inequalMap.put(pair[1], new ArrayList<>());
+					}
 					// 由于等价性的传递性，一组经人工确认后建立了间接等价关系的两个程序，可以跳过人工确认
 					if (!Objects.equals(dsUnion.find(pair[0]), dsUnion.find(pair[1]))) {
 						String diffString = DiffTextGenerator.generate(pair[0], pair[1], original, revised);
@@ -66,15 +78,38 @@ public class CheckToolController extends Thread {
 						}
 					}
 					if (isEqual) {
-						dsUnion.union(pair[0], pair[1]);
-						if (inequalPairs.contains(pairRecord)) {
-							throw new RuntimeException("人工确认结果中存在矛盾项: \n" + pairRecord);
+						for (String s : inequalMap.get(pair[0])) {
+							String root1 = dsUnion.find(s);
+							String root2 = dsUnion.find(pair[1]);
+							if (Objects.equals(root1, root2)) {
+								throw new RuntimeException("人工确认结果中存在矛盾项:\n"
+										+ pair[1] + "与" + pair[0] + "等价;\n"
+										+ pair[1] + "与" + s + "等价;\n"
+										+ "而" + pair[0] + "与" + s + "不等价");
+							}
 						}
+						for (String s : inequalMap.get(pair[1])) {
+							String root1 = dsUnion.find(s);
+							String root2 = dsUnion.find(pair[0]);
+							if (Objects.equals(root1, root2)) {
+								throw new RuntimeException("人工确认结果中存在矛盾项:\n"
+										+ pair[0] + "与" + pair[1] + "等价;\n"
+										+ pair[0] + "与" + s + "等价;\n"
+										+ "而" + pair[1] + "与" + s + "不等价");
+							}
+						}
+						dsUnion.union(pair[0], pair[1]);
 						equalPairs.add(pairRecord);
 					} else {
-						if (equalPairs.contains(pairRecord)) {
-							throw new RuntimeException("人工确认结果中存在矛盾项: \n" + pairRecord);
+						if (Objects.equals(dsUnion.find(pair[0]), dsUnion.find(pair[1]))) {
+							String root = dsUnion.find(pair[0]);
+							throw new RuntimeException("人工确认结果中存在矛盾项:\n"
+									+ pair[0] + "与" + root + "等价;\n"
+									+ pair[1] + "与" + root + "等价;\n"
+									+ "而" + pair[0] + "与" + pair[1] + "不等价");
 						}
+						inequalMap.get(pair[0]).add(pair[1]);
+						inequalMap.get(pair[1]).add(pair[0]);
 						inequalPairs.add(pairRecord);
 					}
 				}
@@ -91,6 +126,7 @@ public class CheckToolController extends Thread {
 				if (Objects.equals(scanner.next(), "yes")) {
 					mode = MODE_CHECK_INEQUAL;
 					server.clearFeedback();
+					showPage();
 				} else {
 					break;
 				}
@@ -153,4 +189,13 @@ public class CheckToolController extends Thread {
 			throw new RuntimeException(e);
 		}
 	}
+
+	private void showPage() {
+		try {
+			Desktop.getDesktop().browse(new URI("http://localhost:" + 8080));
+		} catch (IOException | URISyntaxException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
 }

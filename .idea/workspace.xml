@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7c87f62d-0bcc-4d27-8743-e48bf72568a4" name="变更" comment="feat: 检查用户输入，增加鲁棒性">
+    <list default="true" id="7c87f62d-0bcc-4d27-8743-e48bf72568a4" name="变更" comment="bugfix: 修复冲突检测功能">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/kekwy/CheckToolController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kekwy/CheckToolController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/kekwy/LocalWebServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kekwy/LocalWebServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kekwy/util/DisjointSetUnion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kekwy/util/DisjointSetUnion.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -135,7 +135,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669800215222</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="style: 调整确认页面按钮的位置">
+      <created>1669801145854</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1669801145854</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -201,6 +208,8 @@
     <MESSAGE value="feat: 将判断结果输出为CSV文件" />
     <MESSAGE value="bugfix: 修复在确认结果中忽略内容相同文件的bug" />
     <MESSAGE value="feat: 检查用户输入，增加鲁棒性" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 检查用户输入，增加鲁棒性" />
+    <MESSAGE value="style: 调整确认页面按钮的位置" />
+    <MESSAGE value="bugfix: 修复冲突检测功能" />
+    <option name="LAST_COMMIT_MESSAGE" value="bugfix: 修复冲突检测功能" />
   </component>
 </project>
