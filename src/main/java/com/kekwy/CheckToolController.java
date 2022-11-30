@@ -1,12 +1,14 @@
 package com.kekwy;
 
 import com.csvreader.CsvReader;
+import com.kekwy.util.DatePrefix;
 import com.kekwy.util.DiffTextGenerator;
 import com.kekwy.util.DisjointSetUnion;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.sql.Time;
 import java.util.*;
 
 public class CheckToolController extends Thread {
@@ -73,7 +75,6 @@ public class CheckToolController extends Thread {
 						}
 						inequalPairs.add(pairStr);
 					}
-					// checkMap.put(pair[0]+","+pair[1], isEqual);
 				}
 			} catch (IOException e) {
 				throw new RuntimeException(e);
@@ -94,11 +95,42 @@ public class CheckToolController extends Thread {
 		dsUnion.shutdown();
 		server.stop();
 		Scanner scanner = new Scanner(System.in);
-		// toCSVFile(checkMap, Objects.equals(scanner.next(), "yes"));
+		toCSVFile(equalPairs, inequalPairs, Objects.equals(scanner.next(), "yes"));
 	}
 
+	@SuppressWarnings("ResultOfMethodCallIgnored")
 	private void toCSVFile(List<String> equalPairs, List<String> inequalPairs, boolean cover) {
-
+		File equalFile, inequalFile;
+		if (cover) {
+			equalFile = new File(csvFileDir + "equal.csv");
+			inequalFile = new File(csvFileDir + "inequal.csv");
+		} else {
+			equalFile = new File(csvFileDir + "equal_" + DatePrefix.getDateString() + ".csv");
+			inequalFile = new File(csvFileDir + "inequal_" + DatePrefix.getDateString() + ".csv");
+			try {
+				equalFile.createNewFile();
+				inequalFile.createNewFile();
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+		}
+		try {
+			FileWriter fops = new FileWriter(equalFile);
+			fops.write("file1,file2\n");
+			for (String equalPair : equalPairs) {
+				fops.write(equalPair + "\n");
+			}
+			fops.close();
+			fops = new FileWriter(inequalFile, true);
+			if (cover) {
+				fops.write("file1,file2\n");
+			}
+			for (String inequalPair :inequalPairs) {
+				fops.write(inequalPair + "\n");
+			}
+			fops.close();
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
 	}
-
 }

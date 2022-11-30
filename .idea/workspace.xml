@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7c87f62d-0bcc-4d27-8743-e48bf72568a4" name="变更" comment="bugfix: 修复刷新页面直接跳过程序对的bug&#10;&#10;将点击 button 后向后端发送请求的方法从 GET 改为 POST。">
+    <list default="true" id="7c87f62d-0bcc-4d27-8743-e48bf72568a4" name="变更" comment="feat: 检查人工确认结果中的矛盾项">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/kekwy/util/DatePrefix.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/kekwy/CheckToolController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kekwy/CheckToolController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/kekwy/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kekwy/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,7 +107,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669794548418</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="feat: 检查人工确认结果中的矛盾项">
+      <created>1669796687773</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1669796687773</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -169,7 +176,8 @@
     <MESSAGE value="feat: 实现生成统一差异格式文本" />
     <MESSAGE value="bugfix: 修复刷新页面直接跳过程序对的bug&#10;&#10;将点击 button 后向后端发送请求的方法从 GET 改为 POST。" />
     <MESSAGE value="feat: 通过并查集减少需要比较的程序对数量" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 通过并查集减少需要比较的程序对数量" />
+    <MESSAGE value="feat: 检查人工确认结果中的矛盾项" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 检查人工确认结果中的矛盾项" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
