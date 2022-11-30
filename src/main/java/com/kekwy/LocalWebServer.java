@@ -4,7 +4,6 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpServer;
 import com.sun.net.httpserver.spi.HttpServerProvider;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
@@ -49,7 +48,7 @@ public class LocalWebServer {
 		try {
 			HttpServer httpserver = HttpServerProvider.provider().
 					createHttpServer(new InetSocketAddress(port), 100);
-			httpserver.createContext("/", this::handleDefault);
+			httpserver.createContext("/", this::handle);
 			httpserver.createContext("/equal", this::handleEqual);
 			httpserver.createContext("/inequal", this::handleInequal);
 			httpserver.createContext("/favicon.ico", this::handleIcon);
@@ -84,6 +83,7 @@ public class LocalWebServer {
 			if (responseMessage == null) {
 				flag = false;
 			}
+			// responseReady = false;
 		}
 		if (flag) {
 			synchronized (mutexFeedback) {
@@ -92,11 +92,19 @@ public class LocalWebServer {
 				mutexFeedback.notify();
 			}
 		}
-		handleDefault(exchange);
+		handle(exchange);
 	}
 
-	public void handleDefault(HttpExchange exchange) throws IOException {
+	public void handlePost(HttpExchange exchange) throws IOException {
+		System.out.println(new String(exchange.getRequestBody().readAllBytes()));
+	}
+
+	public void handle(HttpExchange exchange) throws IOException {
 		String response;
+		if (Objects.equals(exchange.getRequestMethod(), "POST")) {
+			handlePost(exchange);
+			return;
+		}
 		synchronized (mutexResponse) {
 			if (!responseReady) {
 				try {
@@ -106,7 +114,6 @@ public class LocalWebServer {
 				}
 			}
 			response = TEMPLATE.formatted(GITHUB_CSS, DIFF2HTML_CSS, DIFF2HTML_JS, responseMessage);
-			;
 		}
 		exchange.sendResponseHeaders(200, 0);
 		OutputStream os = exchange.getResponseBody();

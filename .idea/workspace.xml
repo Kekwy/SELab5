@@ -6,10 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="7c87f62d-0bcc-4d27-8743-e48bf72568a4" name="变更" comment="feat: 实现输入模块">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/kekwy/CheckToolController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kekwy/CheckToolController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/kekwy/LocalHttpServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kekwy/LocalWebServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/kekwy/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kekwy/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/kekwy/util/DiffTextGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kekwy/util/DiffTextGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kekwy/LocalWebServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kekwy/LocalWebServer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -136,7 +133,7 @@
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/com/kekwy/util/DiffTextGenerator.java</url>
           <line>21</line>
-          <properties class="com.kekwy.util.DiffTextGenerator">
+          <properties class="com.kekwy.util.DiffTextGenerator" method="insertIntoOriginal">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
