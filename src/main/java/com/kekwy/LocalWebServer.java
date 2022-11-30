@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -45,7 +44,7 @@ public class LocalWebServer {
 	}
 
 	public void stop() {
-		httpserver.stop(5);
+		httpserver.stop(0);
 	}
 
 	public int send(String response) {
@@ -67,7 +66,17 @@ public class LocalWebServer {
 		}
 	}
 
-
+	public void send(String response, boolean block) {
+		if (block) {
+			send(response);
+		} else {
+			synchronized (mutexResponse) {
+				this.responseMessage = response;
+				responseReady = true;
+				mutexResponse.notify();
+			}
+		}
+	}
 
 	private void handleIcon(HttpExchange exchange) {
 		try {
@@ -80,7 +89,7 @@ public class LocalWebServer {
 		}
 	}
 
-	private void helper(int feedback) throws IOException {
+	private void helper(int feedback) {
 		boolean flag = true;
 		synchronized (mutexResponse) {
 			if (responseMessage == null) {

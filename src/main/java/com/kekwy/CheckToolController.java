@@ -8,7 +8,6 @@ import com.kekwy.util.DisjointSetUnion;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.sql.Time;
 import java.util.*;
 
 public class CheckToolController extends Thread {
@@ -84,6 +83,7 @@ public class CheckToolController extends Thread {
 				break;
 			} else {
 				// TODO 确认是否需要人工对比不等价对
+				System.out.println("所有自动判断的等价对结果已经完成确认，是否要对不等价结果进行确认？[yes/no]");
 				Scanner scanner = new Scanner(System.in);
 				if (Objects.equals(scanner.next(), "yes")) {
 					mode = MODE_CHECK_INEQUAL;
@@ -93,7 +93,12 @@ public class CheckToolController extends Thread {
 			}
 		}
 		dsUnion.shutdown();
-		server.stop();
+		Thread thread = new Thread(server::stop);
+		thread.start();
+		while (thread.isAlive()) {
+			server.send("Finish!", false);
+		}
+		System.out.println("确认已完成，是否在原有CSV文件上进行修改？[yes/no]");
 		Scanner scanner = new Scanner(System.in);
 		toCSVFile(equalPairs, inequalPairs, Objects.equals(scanner.next(), "yes"));
 	}
