@@ -50,7 +50,7 @@ public class LocalWebServer {
 		synchronized (mutexResponse) {
 			this.responseMessage = response;
 			responseReady = true;
-			mutexResponse.notify();
+			mutexResponse.notifyAll();
 		}
 		synchronized (mutexFeedback) {
 			if (!feedbackReady) {
@@ -83,6 +83,9 @@ public class LocalWebServer {
 		}
 	}
 
+	/**
+	 * 设置网页标签页的图标
+	 */
 	private void handleIcon(HttpExchange exchange) {
 		try {
 			exchange.sendResponseHeaders(200, 0);
@@ -95,11 +98,9 @@ public class LocalWebServer {
 	}
 
 	private void helper(int feedback) {
-		boolean flag = true;
+		boolean flag;
 		synchronized (mutexResponse) {
-			if (responseMessage == null) {
-				flag = false;
-			}
+			flag = responseReady;
 			responseReady = false;
 		}
 		if (flag) {

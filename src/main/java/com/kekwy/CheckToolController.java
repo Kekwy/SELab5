@@ -43,7 +43,6 @@ public class CheckToolController extends Thread {
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
-
 	}
 
 	@Override
@@ -108,14 +107,14 @@ public class CheckToolController extends Thread {
 						dsUnion.union(pair[0], pair[1]);
 						equalPairs.add(pairRecord);
 					} else {
-						if (Objects.equals(dsUnion.find(pair[0]), dsUnion.find(pair[1]))) {
+						/*if (Objects.equals(dsUnion.find(pair[0]), dsUnion.find(pair[1]))) {
 							String root = dsUnion.find(pair[0]);
 							toCSVFile(equalPairs, inequalPairs, false);
 							throw new RuntimeException("人工确认结果中存在矛盾项:\n"
 									+ pair[0] + "与" + root + "等价;\n"
 									+ pair[1] + "与" + root + "等价;\n"
 									+ "而" + pair[0] + "与" + pair[1] + "不等价");
-						}
+						}*/
 						inequalMap.get(pair[0]).add(pair[1]);
 						inequalMap.get(pair[1]).add(pair[0]);
 						inequalPairs.add(pairRecord);

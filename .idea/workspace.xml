@@ -9,10 +9,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7c87f62d-0bcc-4d27-8743-e48bf72568a4" name="变更" comment="bugfix: 修复冲突检测功能">
-      <change afterPath="$PROJECT_DIR$/config.properties" afterDir="false" />
+    <list default="true" id="7c87f62d-0bcc-4d27-8743-e48bf72568a4" name="变更" comment="feat: 程序因冲突结果退出前，保存当前确认结果; 添加配置文件, 可以自定义web服务器运行端口">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/config.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/kekwy/CheckToolController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kekwy/CheckToolController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/kekwy/LocalWebServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kekwy/LocalWebServer.java" afterDir="false" />
     </list>
@@ -149,7 +148,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669801145854</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="feat: 程序因冲突结果退出前，保存当前确认结果; 添加配置文件, 可以自定义web服务器运行端口">
+      <created>1669857137713</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1669857137714</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -163,7 +169,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="develop" />
+                        <option value="HEAD" />
                       </list>
                     </value>
                   </entry>
@@ -181,6 +187,11 @@
             <list>
               <RecentGroup>
                 <option name="FILTER_VALUES">
+                  <option value="HEAD" />
+                </option>
+              </RecentGroup>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
                   <option value="develop" />
                 </option>
               </RecentGroup>
@@ -192,11 +203,6 @@
               <RecentGroup>
                 <option name="FILTER_VALUES">
                   <option value="feature-webserver" />
-                </option>
-              </RecentGroup>
-              <RecentGroup>
-                <option name="FILTER_VALUES">
-                  <option value="HEAD" />
                 </option>
               </RecentGroup>
             </list>
@@ -217,6 +223,7 @@
     <MESSAGE value="feat: 检查用户输入，增加鲁棒性" />
     <MESSAGE value="style: 调整确认页面按钮的位置" />
     <MESSAGE value="bugfix: 修复冲突检测功能" />
-    <option name="LAST_COMMIT_MESSAGE" value="bugfix: 修复冲突检测功能" />
+    <MESSAGE value="feat: 程序因冲突结果退出前，保存当前确认结果; 添加配置文件, 可以自定义web服务器运行端口" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 程序因冲突结果退出前，保存当前确认结果; 添加配置文件, 可以自定义web服务器运行端口" />
   </component>
 </project>
