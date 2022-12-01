@@ -14,7 +14,6 @@ import java.util.regex.Pattern;
 
 public class LocalWebServer {
 
-
 	private String responseMessage = null;
 	private final Object mutexResponse = new Object();
 

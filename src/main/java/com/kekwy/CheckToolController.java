@@ -13,6 +13,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.*;
 import java.util.List;
+import java.util.function.BiConsumer;
 
 public class CheckToolController extends Thread {
 
@@ -23,6 +24,8 @@ public class CheckToolController extends Thread {
 
 	private final String csvFileDir, pathPrefix;
 
+	private final int SERVER_PORT;
+
 	public CheckToolController(String csvFileDir, String pathPrefix) {
 		if (!csvFileDir.endsWith("/")) {
 			csvFileDir += '/';
@@ -32,11 +35,20 @@ public class CheckToolController extends Thread {
 			pathPrefix += '/';
 		}
 		this.pathPrefix = pathPrefix;
+
+		Properties props = new Properties();
+		try {
+			props.load(new FileInputStream("./config.properties"));
+			SERVER_PORT = Integer.parseInt((String) props.get("port"));
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+
 	}
 
 	@Override
 	public void run() {
-		LocalWebServer server = new LocalWebServer(8080);
+		LocalWebServer server = new LocalWebServer(SERVER_PORT);
 		DisjointSetUnion<String> dsUnion = new DisjointSetUnion<>();
 		List<String> equalPairs = new ArrayList<>();
 		List<String> inequalPairs = new ArrayList<>();
@@ -78,31 +90,27 @@ public class CheckToolController extends Thread {
 						}
 					}
 					if (isEqual) {
-						for (String s : inequalMap.get(pair[0])) {
-							String root1 = dsUnion.find(s);
-							String root2 = dsUnion.find(pair[1]);
-							if (Objects.equals(root1, root2)) {
-								throw new RuntimeException("人工确认结果中存在矛盾项:\n"
-										+ pair[1] + "与" + pair[0] + "等价;\n"
-										+ pair[1] + "与" + s + "等价;\n"
-										+ "而" + pair[0] + "与" + s + "不等价");
+						BiConsumer<String, String> helper = (String p1, String p2) -> {
+							for (String s : inequalMap.get(p1)) {
+								String root1 = dsUnion.find(s);
+								String root2 = dsUnion.find(p2);
+								if (Objects.equals(root1, root2)) {
+									toCSVFile(equalPairs, inequalPairs, false);
+									throw new RuntimeException("人工确认结果中存在矛盾项:\n"
+											+ p2 + "与" + p1 + "等价;\n"
+											+ p2 + "与" + s + "等价;\n"
+											+ "而" + p1 + "与" + s + "不等价");
+								}
 							}
-						}
-						for (String s : inequalMap.get(pair[1])) {
-							String root1 = dsUnion.find(s);
-							String root2 = dsUnion.find(pair[0]);
-							if (Objects.equals(root1, root2)) {
-								throw new RuntimeException("人工确认结果中存在矛盾项:\n"
-										+ pair[0] + "与" + pair[1] + "等价;\n"
-										+ pair[0] + "与" + s + "等价;\n"
-										+ "而" + pair[1] + "与" + s + "不等价");
-							}
-						}
+						};
+						helper.accept(pair[0], pair[1]);
+						helper.accept(pair[1], pair[0]);
 						dsUnion.union(pair[0], pair[1]);
 						equalPairs.add(pairRecord);
 					} else {
 						if (Objects.equals(dsUnion.find(pair[0]), dsUnion.find(pair[1]))) {
 							String root = dsUnion.find(pair[0]);
+							toCSVFile(equalPairs, inequalPairs, false);
 							throw new RuntimeException("人工确认结果中存在矛盾项:\n"
 									+ pair[0] + "与" + root + "等价;\n"
 									+ pair[1] + "与" + root + "等价;\n"
@@ -188,11 +196,13 @@ public class CheckToolController extends Thread {
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
+		System.out.println("确认结果文件生成于: \n" + equalFile.getAbsolutePath() + "\n"
+				+ inequalFile.getAbsolutePath());
 	}
 
 	private void showPage() {
 		try {
-			Desktop.getDesktop().browse(new URI("http://localhost:" + 8080));
+			Desktop.getDesktop().browse(new URI("http://localhost:" + SERVER_PORT));
 		} catch (IOException | URISyntaxException e) {
 			throw new RuntimeException(e);
 		}
