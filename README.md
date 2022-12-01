@@ -65,8 +65,6 @@ https://github.com/1506085843/fillDiff/tree/main/src/main/resources/js/diff2html
 
 <img src="https://assets.kekwy.com/images/image-20221201092434440.png" alt="image-20221201092434440" style="zoom:150%;" />
 
-
-
 ## 2. 具体实现
 
 ### 2.1 运行逻辑
