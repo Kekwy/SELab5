@@ -9,7 +9,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7c87f62d-0bcc-4d27-8743-e48bf72568a4" name="变更" comment="release: v1.0" />
+    <list default="true" id="7c87f62d-0bcc-4d27-8743-e48bf72568a4" name="变更" comment="feat: 程序因冲突结果退出前，保存当前确认结果; 添加配置文件, 可以自定义web服务器运行端口">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/jscss/diff2html-ui.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/jscss/diff2html.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/jscss/github.min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/config.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kekwy/CheckToolController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kekwy/CheckToolController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kekwy/LocalWebServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kekwy/LocalWebServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kekwy/util/DiffTextGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kekwy/util/DiffTextGenerator.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -49,22 +59,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;last_directory_selection&quot;: &quot;E:/NJUCSSFzyx/软件工程/lab5/src/main/java&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;项目&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.repository.indices&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "last_directory_selection": "E:/NJUCSSFzyx/软件工程/lab5/src/main/java",
+    "last_opened_file_path": "E:/NJUCSSFzyx/软件工程/lab6-201220214-张宇轩/code/src/main/resources/jscss",
+    "project.structure.last.edited": "项目",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices"
   }
-}</component>
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\NJUCSSFzyx\软件工程\lab6-201220214-张宇轩\code\src\main\resources\jscss" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="com.kekwy.Main" />
-      <module name="lab5" />
+      <module name="code" />
       <option name="PROGRAM_PARAMETERS" value="-csv ./output -dir ." />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -150,14 +166,7 @@
       <option name="project" value="LOCAL" />
       <updated>1669857137714</updated>
     </task>
-    <task id="LOCAL-00011" summary="release: v1.0">
-      <created>1669888011418</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1669888011418</updated>
-    </task>
-    <option name="localTasksCounter" value="12" />
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -226,7 +235,6 @@
     <MESSAGE value="style: 调整确认页面按钮的位置" />
     <MESSAGE value="bugfix: 修复冲突检测功能" />
     <MESSAGE value="feat: 程序因冲突结果退出前，保存当前确认结果; 添加配置文件, 可以自定义web服务器运行端口" />
-    <MESSAGE value="release: v1.0" />
-    <option name="LAST_COMMIT_MESSAGE" value="release: v1.0" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 程序因冲突结果退出前，保存当前确认结果; 添加配置文件, 可以自定义web服务器运行端口" />
   </component>
 </project>

@@ -33,6 +33,9 @@ public class LocalWebServer {
 					createHttpServer(new InetSocketAddress(port), 100);
 			httpserver.createContext("/", this::handle);
 			httpserver.createContext("/favicon.ico", this::handleIcon);
+			httpserver.createContext("/jscss/diff2html.min.css", this::handleDiffCss);
+			httpserver.createContext("/jscss/diff2html-ui.min.js", this::handleDiffJs);
+			httpserver.createContext("/jscss/github.min.css", this::handleGithubCss);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -91,6 +94,42 @@ public class LocalWebServer {
 			exchange.sendResponseHeaders(200, 0);
 			OutputStream os = exchange.getResponseBody();
 			os.write(Objects.requireNonNull(this.getClass().getResourceAsStream("/icon.jpg")).readAllBytes());
+			os.close();
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	public void handleDiffCss(HttpExchange exchange) throws IOException {
+		try {
+			exchange.sendResponseHeaders(200, 0);
+			OutputStream os = exchange.getResponseBody();
+			os.write(Objects.requireNonNull(this.getClass().
+					getResourceAsStream("/jscss/diff2html.min.css")).readAllBytes());
+			os.close();
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	public void handleDiffJs(HttpExchange exchange) throws IOException {
+		try {
+			exchange.sendResponseHeaders(200, 0);
+			OutputStream os = exchange.getResponseBody();
+			os.write(Objects.requireNonNull(this.getClass().
+					getResourceAsStream("/jscss/diff2html-ui.min.js")).readAllBytes());
+			os.close();
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	public void handleGithubCss(HttpExchange exchange) throws IOException {
+		try {
+			exchange.sendResponseHeaders(200, 0);
+			OutputStream os = exchange.getResponseBody();
+			os.write(Objects.requireNonNull(this.getClass().
+					getResourceAsStream("/jscss/github.min.css")).readAllBytes());
 			os.close();
 		} catch (IOException e) {
 			throw new RuntimeException(e);
@@ -157,12 +196,12 @@ public class LocalWebServer {
 		os.close();
 	}
 
-	private static final String GITHUB_CSS =
-			"https://cdn.jsdelivr.net/gh/1506085843/fillDiff@master/src/main/resources/css/github.min.css";
-	private static final String DIFF2HTML_CSS =
-			"https://cdn.jsdelivr.net/gh/1506085843/fillDiff@master/src/main/resources/css/diff2html.min.css";
-	private static final String DIFF2HTML_JS =
-			"https://cdn.jsdelivr.net/gh/1506085843/fillDiff@master/src/main/resources/js/diff2html-ui.min.js";
+	private static final String GITHUB_CSS = "/jscss/github.min.css";
+	// "https://cdn.jsdelivr.net/gh/Kekwy/java-file-diff@main/src/main/resources/jscss/github.min.css";
+	private static final String DIFF2HTML_CSS = "/jscss/diff2html.min.css";
+	// "https://cdn.jsdelivr.net/gh/Kekwy/java-file-diff@main/src/main/resources/jscss/diff2html.min.css";
+	private static final String DIFF2HTML_JS = "/jscss/diff2html-ui.min.js";
+	// "https://cdn.jsdelivr.net/gh/Kekwy/java-file-diff@main/src/main/resources/jscss/diff2html-ui.min.js";
 
 	public static final String TEMPLATE =
 			"""

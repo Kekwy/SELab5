@@ -36,22 +36,21 @@ public class DiffTextGenerator {
 				int oriLineRange = Integer.parseInt(matcher.group(2));
 				// int revLineNumber = Integer.parseInt(matcher.group(3));
 				int revLineRange = Integer.parseInt(matcher.group(4));
-				if (oriLineNumber == 1) {
-					if (diffText.size() != 3) {
-						throw new RuntimeException("unifiedDiff格式有误" + Arrays.toString(unifiedDiff.toArray()));
-					}
+				if (oriLineNumber == 1 && diffText.size() != 3) {
+					throw new RuntimeException("unifiedDiff格式有误" + Arrays.toString(unifiedDiff.toArray()));
 				}
-				while(ptr + 1 < oriLineNumber) {
+				while (ptr + 1 < oriLineNumber) {
 					diffText.add(" " + original.get(ptr));
 					ptr++;
 				}
 				ptr += oriLineRange;
-				for (int j = 0; j < oriLineRange + revLineRange; j++, i++) {
-					diffText.add(unifiedDiff.get(i + 1));
+				for (int j = 0, t = i; j < oriLineRange + revLineRange; j++, t++) {
+					diffText.add(unifiedDiff.get(t + 1));
 				}
+				i += oriLineRange + revLineRange;
 			}
 		}
-		while(ptr < original.size()) {
+		while (ptr < original.size()) {
 			diffText.add(" " + original.get(ptr));
 			ptr++;
 		}
